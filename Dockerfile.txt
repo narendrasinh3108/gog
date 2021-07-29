@@ -14,10 +14,10 @@ RUN dism.exe /online /enable-feature /all /featurename:iis-webserver /NoRestart
 #Set WorkDirectory
 WORKDIR C:/Program Files
 
-# Copy Java to Image
+# Copy Java Directory to Image 
 COPY java ./java
 
-#Copy apache tomcat to Image
+#Copy apache tomcat Directory to Image
 COPY apache-tomcat-8.5.69 ./apache-tomcat-8.5.69
 
 #Set JAVA_HOME Envirement
