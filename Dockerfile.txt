@@ -7,8 +7,27 @@ LABEL maintainer="jshelton@contoso.com"
 # Uses dism.exe to install the IIS role.
 RUN dism.exe /online /enable-feature /all /featurename:iis-webserver /NoRestart
 
+
 # Creates an HTML file and adds content to this file.
-RUN echo "Hello World - Dockerfile" > c:\inetpub\wwwroot\index.html
+# RUN echo "Hello World - Dockerfile" > c:\inetpub\wwwroot\index.html
+
+#Set WorkDirectory
+WORKDIR C:/Program Files
+
+# Copy Java to Image
+COPY java ./java
+
+#Copy apache tomcat to Image
+COPY apache-tomcat-8.5.69 ./apache-tomcat-8.5.69
+
+#Set JAVA_HOME Envirement
+CMD ["setx","JAVA_HOME","C:\Program Files\Java\jdk-16"]
+
+#Set JAVA PATH
+CMD ["setc","PATH","%PATH%;%JAVA_HOME%\bin"]
+
+#Run Tomcat
+CMD ["C:/gog/apache-tomcat-8.5.69/bin/startup.bat"]
 
 # Sets a command or process that will run each time a container is run from the new image.
 CMD [ "cmd" ]
